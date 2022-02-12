@@ -1,5 +1,9 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { checkIfWordIsInList } from "./Utility/Logic.js";
+import { checkIfWordHasSharedLetters } from "./Utility/Logic.js";
+import { getWordScore } from "./Utility/Logic.js";
+import { getRandomLetters } from "./Utility/Logic.js";
 
 function App() {
   return (
@@ -18,6 +22,7 @@ function App() {
           Learn React
         </a>
       </header>
+      {console.log(getRandomLetters(25, false))};
     </div>
   );
 }
