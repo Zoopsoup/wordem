@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 const Timer = (props) => {
-  const { seconds = 0, setSeconds } = props;
+  const { seconds = 0, setSeconds, setUsedLetters } = props;
 
   useEffect(() => {
     let myInterval = setInterval(() => {
@@ -11,6 +11,8 @@ const Timer = (props) => {
       }
       if (seconds === 0) {
         clearInterval(myInterval);
+        alert("Loser!");
+        setUsedLetters([0, 1, 2, 3, 4, 5, 6, 7, 8]);
       }
     }, 1000);
     return () => {
