@@ -66,8 +66,13 @@ function App() {
 
   return (
     <Page>
-      <Timer seconds={seconds} setSeconds={setSeconds} />
       <Title>Wordem</Title>
+      <Timer
+        seconds={seconds}
+        setSeconds={setSeconds}
+        setUsedLetters={setUsedLetters}
+      />
+      <p>{score}</p>
       <CurrentWord>{currentWordString}</CurrentWord>
       <SharedLetters
         sharedLetters={sharedLetters}
