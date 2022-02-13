@@ -23,16 +23,14 @@ function App() {
   // Array of bools mapping to letter tiles based on index: 0-1 -> shared letters, 2-8 -> held letters
   const [usedLetters, setUsedLetters] = useState([]);
 
+  const [score, setScore] = useState(0);
+
   useEffect(() => {
     function handleKeyDown(e) {
-      console.log("pressed");
       let copiedLetterState = [...usedLetters];
-      console.log(copiedLetterState);
-      console.log(usedLetters);
       if (e.keyCode == 8) {
         setCurrentWordString((s) => s.slice(0, -1));
         let copiedLetterState = [...usedLetters];
-        console.log(copiedLetterState);
         copiedLetterState.pop();
         setUsedLetters(copiedLetterState);
       } else if (e.keyCode >= 65 && e.keyCode <= 90) {
@@ -59,6 +57,10 @@ function App() {
     ) {
       console.log("Word was valid!");
       setHeldLetters(getRandomLetters(7, false, false));
+      console.log(score);
+      console.log(getWordScore(currentWordString));
+      setScore(score + getWordScore(currentWordString));
+      setCurrentWordString("");
     }
   };
 

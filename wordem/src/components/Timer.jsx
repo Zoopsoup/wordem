@@ -11,6 +11,7 @@ const Timer = (props) => {
       }
       if (seconds === 0) {
         clearInterval(myInterval);
+        alert("Loser!");
       }
     }, 1000);
     return () => {
