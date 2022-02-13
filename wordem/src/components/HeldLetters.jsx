@@ -11,16 +11,19 @@ const HeldLetters = ({
   heldLetters,
   currentWordString,
   setCurrentWordString,
+  usedLetters,
+  setUsedLetters
 }) => {
-  console.log(heldLetters);
-  heldLetters.map((letterInfo) => console.log(letterInfo[0], letterInfo[1]));
-  const heldTiles = heldLetters.map((letterInfo) => (
+  const heldTiles = heldLetters.map((letterInfo, index) => (
     <LetterTile
       letter={letterInfo[0]}
       score={letterInfo[1]}
       currentWordString={currentWordString}
       setCurrentWordString={setCurrentWordString}
-      key={letterInfo[1]}
+      usedLetters={usedLetters}
+      setUsedLetters={setUsedLetters}
+      tileId={index + 2}
+      key={index}
     />
   ));
   return <HeldLetterContainer>{heldTiles}</HeldLetterContainer>;

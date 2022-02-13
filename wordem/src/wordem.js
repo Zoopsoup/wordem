@@ -12,33 +12,36 @@ import Timer from "./components/Timer.jsx";
 
 function App() {
   const [currentWordString, setCurrentWordString] = useState("");
-
   const [heldLetters, setHeldLetters] = useState(getRandomLetters(7, true));
-
-  const [sharedLetters, setSharedLetters] = useState(
-    getRandomLetters(2, false)
-  );
-
+  const [sharedLetters, setSharedLetters] = useState(getRandomLetters(2, false));
   const [seconds, setSeconds] = useState(25);
+  // Array of bools mapping to letter tiles based on index: 0-1 -> shared letters, 2-8 -> held letters
+  const [usedLetters, setUsedLetters] = useState([]);
 
-  // useEffect(() => {
-  //   const handleKeyDown = (e) => {
-  //     if (e.keyCode == 8 && currentWordString != "") {
-  //       setCurrentWordString(currentWordString.slice(0, currentWordString.length - 1))
-  //       console.log("backspace pressed")
-  //     } else if ((/[A-Z]/).test(e.key)) {
-  //       setCurrentWordString((currentWordString) =>  currentWordString + e.key)
-  //     }
-  //   }
+  useEffect(() => {
+    function handleKeyDown(e) {
+      console.log("pressed")
+      let copiedLetterState = [...usedLetters]
+      console.log(copiedLetterState)
+      console.log(usedLetters)
+      if (e.keyCode == 8) {
+        setCurrentWordString(s => s.slice(0, - 1))
+        let copiedLetterState = [...usedLetters]
+        console.log(copiedLetterState)
+        copiedLetterState.pop()
+        setUsedLetters(copiedLetterState)
+      } else if (e.keyCode >= 65 && e.keyCode <= 90){
+        setCurrentWordString(s => s + e.key.toUpperCase())
+      }
+    }
 
-  //   document.addEventListener('keydown', handleKeyDown);
-
-  //   // Don't forget to clean up
-  //   return function cleanup() {
-  //     document.removeEventListener('keydown', handleKeyDown);
-  //   }
-  // }, []);
-
+    document.addEventListener('keydown', handleKeyDown);
+    // Don't forget to clean up
+    return function cleanup() {
+      document.removeEventListener('keydown', handleKeyDown);
+    }
+  }, []);
+  
   return (
     <Page>
       <Timer seconds={seconds} setSeconds={setSeconds} />
@@ -48,11 +51,15 @@ function App() {
         sharedLetters={sharedLetters}
         currentWordString={currentWordString}
         setCurrentWordString={setCurrentWordString}
+        usedLetters={usedLetters}
+        setUsedLetters={setUsedLetters}
       ></SharedLetters>
       <HeldLetters
         heldLetters={heldLetters}
         currentWordString={currentWordString}
         setCurrentWordString={setCurrentWordString}
+        usedLetters={usedLetters}
+        setUsedLetters={setUsedLetters}
       />
     </Page>
   );

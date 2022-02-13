@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
 const LetterContainer = styled.button`
   display: flex;
@@ -10,6 +10,10 @@ const LetterContainer = styled.button`
   height: 110px;
   border: 2px solid black;
   position: relative;
+  ${props => props.disabled && css`
+    background: #8d8d8d;
+    pointer-events: none;
+  `}
 `;
 
 const Letter = styled.p`
@@ -37,17 +41,25 @@ const LetterTile = ({
   score,
   currentWordString,
   setCurrentWordString,
+  usedLetters,
+  setUsedLetters,
+  tileId 
 }) => {
   const handleLetterClick = (letter) => {
-    console.log(letter);
     setCurrentWordString((currentWordString) => currentWordString + letter);
+    setUsedLetters(A => [...A, tileId])
   };
 
   return (
-    <LetterContainer onClick={() => handleLetterClick(letter)}>
-      <Letter>{letter}</Letter>
-      <Score>{score}</Score>
-    </LetterContainer>
+    <div>
+      {usedLetters && 
+      <LetterContainer onClick={() => handleLetterClick(letter)} disabled={
+        usedLetters && usedLetters.length ? usedLetters.includes(tileId) : false}>
+        <Letter>{letter}</Letter>
+        <Score>{score}</Score>
+      </LetterContainer>}
+    </div>
+    
   );
 };
 
