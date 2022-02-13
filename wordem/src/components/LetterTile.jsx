@@ -14,6 +14,9 @@ const LetterContainer = styled.button`
     background: #8d8d8d;
     pointer-events: none;
   `}
+  &:hover {
+    background-color: #a9a9a9;
+  }
 `;
 
 const Letter = styled.p`
