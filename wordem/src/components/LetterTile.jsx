@@ -10,6 +10,9 @@ const LetterContainer = styled.button`
   height: 110px;
   border: 2px solid black;
   position: relative;
+  &:hover {
+    background-color: #a9a9a9;
+  }
 `;
 
 const Letter = styled.p`
