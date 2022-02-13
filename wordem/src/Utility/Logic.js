@@ -1,32 +1,32 @@
 import { word_list } from "./Words.js";
 
 const lettersToScores = new Map([
-  ["a", 1],
-  ["b", 3],
-  ["c", 3],
-  ["d", 2],
-  ["e", 1],
-  ["f", 4],
-  ["g", 2],
-  ["h", 4],
-  ["i", 1],
-  ["j", 8],
-  ["k", 5],
-  ["l", 1],
-  ["m", 3],
-  ["n", 1],
-  ["o", 1],
-  ["p", 3],
-  ["q", 10],
-  ["r", 1],
-  ["s", 1],
-  ["t", 1],
-  ["u", 1],
-  ["v", 4],
-  ["w", 4],
-  ["x", 8],
-  ["y", 4],
-  ["z", 10],
+  ["A", 1],
+  ["B", 3],
+  ["C", 3],
+  ["D", 2],
+  ["E", 1],
+  ["F", 4],
+  ["G", 2],
+  ["H", 4],
+  ["I", 1],
+  ["J", 8],
+  ["K", 5],
+  ["L", 1],
+  ["M", 3],
+  ["N", 1],
+  ["O", 1],
+  ["P", 3],
+  ["Q", 10],
+  ["R", 1],
+  ["S", 1],
+  ["T", 1],
+  ["U", 1],
+  ["V", 4],
+  ["W", 4],
+  ["X", 8],
+  ["Y", 4],
+  ["Z", 10],
 ]);
 
 // checks if userWord is in Scrabble list
@@ -55,10 +55,14 @@ export let getRandomLetters = (n, canRepeat) => {
   let lettersScores = [];
 
   for (let i = 0; i < n; i++) {
-    let letter = String.fromCharCode(97 + Math.floor(Math.random() * 26));
+    let letter = String.fromCharCode(
+      97 + Math.floor(Math.random() * 26)
+    ).toUpperCase();
     // if the letter generated is already in letters and canRepeat is false, then a new letter is generated
     while (!canRepeat && letters.includes(letter)) {
-      letter = String.fromCharCode(97 + Math.floor(Math.random() * 26));
+      letter = String.fromCharCode(
+        97 + Math.floor(Math.random() * 26)
+      ).toUpperCase();
     }
     // gets the associated score of the letter
     let letterAndScore = [letter, lettersToScores.get(letter)];
@@ -66,4 +70,18 @@ export let getRandomLetters = (n, canRepeat) => {
     lettersScores.push(letterAndScore);
   }
   return lettersScores;
+};
+
+export let updateThreshold = (userScore, currentThreshold, setSeconds) => {
+  if (userScore >= currentThreshold) {
+    currentThreshold += 25;
+    setSeconds += 20;
+  }
+};
+
+export let checkIfGameOver = (seconds) => {
+  if (seconds == 0) {
+    return true;
+  }
+  return false;
 };
