@@ -28,8 +28,8 @@ const SharedLetters = ({
       setCurrentWordString={setCurrentWordString}
       usedLetters={usedLetters}
       setUsedLetters={setUsedLetters}
+      tileId={index}
       key={index}
-      isDisabled={false}
     />
   ));
   return <SharedLetterContainer>{sharedTiles}</SharedLetterContainer>;
