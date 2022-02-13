@@ -38,7 +38,7 @@ export let checkIfWordIsInList = (userWord) => {
 
 // checks if the userWord uses both shared letters
 export let checkIfWordHasSharedLetters = (c1, c2, userWord) => {
-  return userWord.includes(c1) && userWord.includes(c2);
+  return userWord.includes(c1) || userWord.includes(c2);
 };
 
 export let getWordScore = (userWord) => {

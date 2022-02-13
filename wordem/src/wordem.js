@@ -13,42 +13,55 @@ import Button from "./components/Button.jsx";
 
 function App() {
   const [currentWordString, setCurrentWordString] = useState("");
-  const [heldLetters, setHeldLetters] = useState(getRandomLetters(7, true));
-  const [sharedLetters, setSharedLetters] = useState(getRandomLetters(2, false));
+  const [heldLetters, setHeldLetters] = useState(
+    getRandomLetters(7, true, true)
+  );
+  const [sharedLetters, setSharedLetters] = useState(
+    getRandomLetters(2, false, false)
+  );
   const [seconds, setSeconds] = useState(25);
   // Array of bools mapping to letter tiles based on index: 0-1 -> shared letters, 2-8 -> held letters
   const [usedLetters, setUsedLetters] = useState([]);
 
   useEffect(() => {
     function handleKeyDown(e) {
-      console.log("pressed")
-      let copiedLetterState = [...usedLetters]
-      console.log(copiedLetterState)
-      console.log(usedLetters)
+      console.log("pressed");
+      let copiedLetterState = [...usedLetters];
+      console.log(copiedLetterState);
+      console.log(usedLetters);
       if (e.keyCode == 8) {
-        setCurrentWordString(s => s.slice(0, - 1))
-        let copiedLetterState = [...usedLetters]
-        console.log(copiedLetterState)
-        copiedLetterState.pop()
-        setUsedLetters(copiedLetterState)
-      } else if (e.keyCode >= 65 && e.keyCode <= 90){
-        setCurrentWordString(s => s + e.key.toUpperCase())
+        setCurrentWordString((s) => s.slice(0, -1));
+        let copiedLetterState = [...usedLetters];
+        console.log(copiedLetterState);
+        copiedLetterState.pop();
+        setUsedLetters(copiedLetterState);
+      } else if (e.keyCode >= 65 && e.keyCode <= 90) {
+        setCurrentWordString((s) => s + e.key.toUpperCase());
       }
     }
+
+    document.addEventListener("keydown", handleKeyDown);
+    // Don't forget to clean up
+    return function cleanup() {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
   let submitAction = () => {
     console.log("Button Clicked!");
-    if (checkIfWordHasSharedLetters && checkIfWordIsInList) {
+    if (
+      checkIfWordHasSharedLetters(
+        sharedLetters[0][0],
+        sharedLetters[1][0],
+        currentWordString
+      ) &&
+      checkIfWordIsInList(currentWordString)
+    ) {
+      console.log("Word was valid!");
       setHeldLetters(getRandomLetters(7, false, false));
     }
   };
 
-    document.addEventListener('keydown', handleKeyDown);
-    // Don't forget to clean up
-    return function cleanup() {
-      document.removeEventListener('keydown', handleKeyDown);
-    }
-  }, []);
-  
   return (
     <Page>
       <Timer seconds={seconds} setSeconds={setSeconds} />

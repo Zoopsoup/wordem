@@ -26,7 +26,7 @@ const Text = styled.p`
 
 const Button = ({ text, action }) => {
   return (
-    <ButtonContainer onClick={() => action}>
+    <ButtonContainer onClick={action}>
       <Text>{text}</Text>
     </ButtonContainer>
   );
