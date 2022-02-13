@@ -12,8 +12,8 @@ const HeldLetters = ({
   currentWordString,
   setCurrentWordString,
 }) => {
-  console.log(heldLetters);
-  heldLetters.map((letterInfo) => console.log(letterInfo[0], letterInfo[1]));
+  // console.log(heldLetters);
+  // heldLetters.map((letterInfo) => console.log(letterInfo[0], letterInfo[1]));
   const heldTiles = heldLetters.map((letterInfo) => (
     <LetterTile
       letter={letterInfo[0]}

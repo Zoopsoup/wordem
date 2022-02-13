@@ -9,17 +9,27 @@ import { checkIfWordHasSharedLetters } from "./Utility/Logic.js";
 import { getWordScore } from "./Utility/Logic.js";
 import { getRandomLetters } from "./Utility/Logic.js";
 import Timer from "./components/Timer.jsx";
+import Button from "./components/Button.jsx";
 
 function App() {
   const [currentWordString, setCurrentWordString] = useState("");
 
-  const [heldLetters, setHeldLetters] = useState(getRandomLetters(7, true));
+  const [heldLetters, setHeldLetters] = useState(
+    getRandomLetters(7, true, true)
+  );
 
   const [sharedLetters, setSharedLetters] = useState(
     getRandomLetters(2, false)
   );
 
   const [seconds, setSeconds] = useState(25);
+
+  let submitAction = () => {
+    console.log("Button Clicked!");
+    if (checkIfWordHasSharedLetters && checkIfWordIsInList) {
+      setHeldLetters(getRandomLetters(7, false, false));
+    }
+  };
 
   // useEffect(() => {
   //   const handleKeyDown = (e) => {
@@ -54,6 +64,7 @@ function App() {
         currentWordString={currentWordString}
         setCurrentWordString={setCurrentWordString}
       />
+      <Button text={"Submit"} action={submitAction}></Button>
     </Page>
   );
 }

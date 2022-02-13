@@ -29,6 +29,8 @@ const lettersToScores = new Map([
   ["Z", 10],
 ]);
 
+const vowels = ["A", "E", "I", "O", "U"];
+
 // checks if userWord is in Scrabble list
 export let checkIfWordIsInList = (userWord) => {
   return word_list.includes(userWord.toUpperCase());
@@ -48,7 +50,7 @@ export let getWordScore = (userWord) => {
 
 // returns an array of n arrays in which the inner arrays are of the form [letter, score]
 // if canRepeat == false, then all the letter/score pairs will be unique
-export let getRandomLetters = (n, canRepeat) => {
+export let getRandomLetters = (n, canRepeat, needVowels) => {
   // array of just the letters that will be returned
   let letters = [];
   // array of the letter/score pairs that will be returned
@@ -64,12 +66,38 @@ export let getRandomLetters = (n, canRepeat) => {
         97 + Math.floor(Math.random() * 26)
       ).toUpperCase();
     }
+    if (i === 0 && needVowels) {
+      letter = generateRandomVowel();
+    }
     // gets the associated score of the letter
     let letterAndScore = [letter, lettersToScores.get(letter)];
     letters.push(letter);
     lettersScores.push(letterAndScore);
   }
+
+  // if (needVowels && !containsVowel(letters)) {
+  //   let letter = generateRandomVowel();
+  //   lettersScores.pop();
+  //   lettersScores.push([letter, lettersToScores.get(letter)]);
+  // }
+
   return lettersScores;
+};
+
+// for some reason "letters" does not match the letters on the screen
+let containsVowel = (letters) => {
+  console.log(letters);
+  vowels.forEach((vowel) => {
+    if (letters.includes(vowel)) {
+      console.log("Vowel already in list");
+      return true;
+    }
+  });
+  return false;
+};
+
+let generateRandomVowel = () => {
+  return vowels[Math.floor(Math.random() * vowels.length)].toUpperCase();
 };
 
 export let updateThreshold = (userScore, currentThreshold, setSeconds) => {

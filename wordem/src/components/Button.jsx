@@ -16,7 +16,6 @@ const ButtonContainer = styled.button`
   background-color: green;
 `;
 
-
 const Text = styled.p`
   text-align: center;
   font-size: 34px;
@@ -25,12 +24,7 @@ const Text = styled.p`
   position: absolute;
 `;
 
-const Button = ({
-  text,
-  action
-}) => {
-  
-
+const Button = ({ text, action }) => {
   return (
     <ButtonContainer onClick={() => action}>
       <Text>{text}</Text>
